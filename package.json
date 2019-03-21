@@ -1,0 +1,14 @@
+{
+  "name": "dodo-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Hhouzhihoujue/dodo-server.git",
+  "author": "Lihang <790750172@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
