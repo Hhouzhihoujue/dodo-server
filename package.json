@@ -6,9 +6,12 @@
   "author": "Lihang <790750172@qq.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index"
+    "start": "nodemon index"
   },
   "dependencies": {
     "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
   }
 }
