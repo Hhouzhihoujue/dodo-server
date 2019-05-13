@@ -6,12 +6,18 @@
   "author": "Lihang <790750172@qq.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index"
+    "dev": "NODE_ENV=development nodemon index"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "glob": "^7.1.4",
+    "ioredis": "^4.9.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.7"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
     "nodemon": "^1.19.0"
   }
 }
