@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 const RoleVld = require('./role.vld');
-
+const { root: { roleCode } } = require('../../env');
 class RoleCtrl {
 	/**
    * @api {get} /roles 获取角色
@@ -25,9 +25,8 @@ class RoleCtrl {
   */
 	async getRoles(req, res) {
 		const Role = mongoose.model('role');
-		const roles = Role.find({},{__v: 0});
-		const [list, count] = await Promise.all([ roles, Role.countDocuments()]);
-		res.send({ code: 1, msg: '获取角色成功！', data: { list, count}});
+		const list = await Role.find({code: {$ne: roleCode}},{__v: 0});
+		res.send({ code: 1, msg: '获取角色成功！', data: { list }});
 	}
   
 	/**
