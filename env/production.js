@@ -1,3 +1,5 @@
+const { name: serverName } = require('../package.json');
+
 module.exports = {
 	port: 3000,
 	redis: {
@@ -13,5 +15,8 @@ module.exports = {
 		nickName: '系统管理员',
 		roleName: '系统管理员',
 		roleCode: 'root'
+	},
+	redisKey: {
+		loginInfo: `${serverName}_login_info`
 	}
 };

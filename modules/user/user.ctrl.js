@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const UserVld = require('./user.vld');
-const { tokenSecret, tokenExpires } = require('../../env');
+const { tokenSecret, tokenExpires, redisKey: { loginInfoKey } } = require('../../env');
 const { md5Sign, jwtSign } = require('../../utils/common');
 const redis = require('../../config/redis');
 
@@ -151,11 +151,11 @@ class UserCtrl {
 			res.send({ code: 0, msg: '用户名或密码错误！', data: null});
 			return;
 		}
-		const token = jwtSign(tokenSecret, result._id, tokenExpires);
+		const token = jwtSign(tokenSecret, {id: result._id, role: result.role.code}, tokenExpires);
 		const userInfo = result.toObject();
 		delete userInfo.password;
 		userInfo['token'] = token;
-		await redis.hset('loginInfo', String(result._id), token);
+		await redis.hset(loginInfoKey, String(result._id), token);
 		res.send({ code: 1, msg: '登陆成功', data: userInfo});
 	}
 
@@ -177,8 +177,8 @@ class UserCtrl {
 	    HTTP/1.1 500 Internal Server Error
 	*/
 	async logout(req, res) {
-		if(req.userId) {
-			await redis.hdel('loginInfo', String(req.userId));
+		if(req.user) {
+			await redis.hdel(loginInfoKey, String(req.user.id));
 			res.send({code: 1, msg: '用户注销成功！',data: null });
 			return;
 		}
